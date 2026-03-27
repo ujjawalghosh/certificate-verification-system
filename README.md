@@ -1,4 +1,4 @@
-# CertiFlow
+# CertiFlow | Certificate Verification System
 
 CertiFlow is a certificate verification system for admins and students. Admins can import student records, generate certificates, and publish verification links. Students can search certificate IDs, scan QR codes, and download certificate PDFs.
 
