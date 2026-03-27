@@ -110,19 +110,21 @@ export default function Signup() {
 
   return (
     <section className="grid gap-8 lg:grid-cols-[1.1fr,0.9fr]">
-      <div className="rounded-3xl border border-[#f1e2d2] bg-white p-7 shadow-[0_12px_24px_rgba(15,27,45,0.08)]">
+      <div className="rounded-[24px] border border-[#f1e2d2] bg-white p-5 shadow-[0_12px_24px_rgba(15,27,45,0.08)] sm:rounded-3xl sm:p-7">
         <div className="text-xs uppercase tracking-[0.2em] text-ink-soft">
           Create Account
         </div>
-        <h1 className="mt-3 font-display text-3xl">Sign up for CertiFlow</h1>
-        <p className="mt-2 text-ink-soft">
+        <h1 className="mt-3 font-display text-[2rem] leading-tight sm:text-3xl">
+          Sign up for CertiFlow
+        </h1>
+        <p className="mt-2 text-sm leading-6 text-ink-soft sm:text-base">
           {form.role === "admin"
             ? "Create an admin account to upload student data and manage certificates."
             : "Create a student account to verify and access certificates securely."}
         </p>
         <form className="mt-6 grid gap-4" onSubmit={handleSubmit}>
-          <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-[#f0d7c1] bg-[#f9f4ec] p-4">
-            <div className="relative h-16 w-16 overflow-hidden rounded-full border-2 border-white bg-white shadow-md">
+          <div className="flex flex-col items-start gap-4 rounded-2xl border border-[#f0d7c1] bg-[#f9f4ec] p-4 sm:flex-row sm:items-center">
+            <div className="relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-full border-2 border-white bg-white shadow-md">
               {avatar ? (
                 <img
                   src={avatar}
@@ -145,7 +147,7 @@ export default function Signup() {
                   : "Optional profile photo for your account."}
               </p>
             </div>
-            <label className="cursor-pointer rounded-full bg-ink px-4 py-2 text-xs font-semibold text-white transition hover:-translate-y-0.5">
+            <label className="w-full cursor-pointer rounded-full bg-ink px-4 py-3 text-center text-xs font-semibold text-white transition hover:-translate-y-0.5 sm:w-auto sm:py-2">
               Choose File
               <input
                 type="file"
@@ -265,28 +267,28 @@ export default function Signup() {
               {status.message}
             </div>
           ) : null}
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row">
             <button
               type="submit"
               disabled={loading}
-              className="rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70"
+              className="w-full rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
             >
               {loading ? "Creating..." : "Create Account"}
             </button>
             <Link
               to="/login"
-              className="rounded-full border border-[#f0d7c1] bg-white px-5 py-3 text-sm font-semibold text-ink transition hover:-translate-y-0.5"
+              className="w-full rounded-full border border-[#f0d7c1] bg-white px-5 py-3 text-center text-sm font-semibold text-ink transition hover:-translate-y-0.5 sm:w-auto"
             >
               Already have an account
             </Link>
           </div>
         </form>
       </div>
-      <div className="rounded-3xl bg-ink p-7 text-white">
+      <div className="rounded-[24px] bg-ink p-5 text-white sm:rounded-3xl sm:p-7">
         <div className="text-xs uppercase tracking-[0.2em] text-[#c7d4ef]">
           {form.role === "admin" ? "Admin Access" : "Student Access"}
         </div>
-        <h2 className="mt-3 font-display text-2xl">
+        <h2 className="mt-3 font-display text-xl leading-tight sm:text-2xl">
           {form.role === "admin"
             ? "Create your admin account to manage certificates securely."
             : "Create your student account to verify certificates securely."}
