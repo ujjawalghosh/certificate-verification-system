@@ -45,8 +45,10 @@ export const generateCertificate = async (req, res) => {
 
   const certificateId =
     student.certificateId || buildCertificateId(student._id.toString());
-  const baseUrl =
-    process.env.CLIENT_URL?.replace(/\/$/, "") || "http://localhost:5173";
+import { FRONTEND_URL } from "../server.js";
+
+const baseUrl =
+    (process.env.CLIENT_URL || FRONTEND_URL)?.replace(/\/$/, "") || "http://localhost:5173";
   const certificateUrl = `${baseUrl}/certificate/${certificateId}`;
 
   const certificate = await Certificate.findOneAndUpdate(

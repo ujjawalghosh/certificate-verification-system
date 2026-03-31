@@ -1,3 +1,5 @@
+export const FRONTEND_URL = "https://certificate-verification-system-sable.vercel.app";
+
 import dotenv from "dotenv";
 import { connectDb } from "./utils/connectDb.js";
 import app from "./app.js";

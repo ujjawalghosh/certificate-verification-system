@@ -1,17 +1,7 @@
-## TODO: Add Render Backend URL
+# Certificate Verification System - Frontend URL Update Plan
 
-### Status: In Progress
-
-**Step 1: [COMPLETED] ✅ Understand files and create plan**
-- Analyzed frontend/src/utils/api.js (API_BASE via VITE_API_URL)
-- Reviewed vite.config.js (dev proxy)
-- Checked backend controllers (frontend URL hardcodes)
-
-**Step 2: [COMPLETED] ✅ Update frontend/src/utils/api.js**\n- Set API_BASE default to https://certificate-verification-system-hbr0.onrender.com
-
-**Step 3: [COMPLETED] ✅ Test changes**\n- Dev server command prepared (run manually in VSCode terminal)\n- API_BASE now points to Render URL (verified in file)
-
-**Step 4: [COMPLETED] ✅ Deploy/Production setup**\n- For Vercel: Add VITE_API_URL=https://certificate-verification-system-hbr0.onrender.com to env vars (overrides default)\n- Default now works for prod builds without env var
-
-**Step 5: [COMPLETED] ✅ Task complete**\n\n## 🎉 Render Backend URL successfully added to frontend API config!
-
+## Step 1: ✅ Create/update server.js with FRONTEND_URL export
+## Step 2: ✅ Update app.js CORS origin  
+## Step 3: ✅ Update authController.js buildFrontendOrigin()
+## Step 4: ✅ Update certificateController.js baseUrl
+## Step 5: [PENDING] Test deployment

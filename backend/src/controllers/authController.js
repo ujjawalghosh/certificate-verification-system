@@ -13,10 +13,10 @@ const signToken = (user) => {
 
 const normalizeEmail = (email) => String(email || "").trim().toLowerCase();
 
+import { FRONTEND_URL } from "../server.js";
+
 const buildFrontendOrigin = () =>
-  process.env.CLIENT_URL ||
-  process.env.FRONTEND_URL ||
-  "http://localhost:5173";
+  process.env.CLIENT_URL || process.env.FRONTEND_URL || FRONTEND_URL || "http://localhost:5173";
 
 const hashResetToken = (token) =>
   crypto.createHash("sha256").update(token).digest("hex");
