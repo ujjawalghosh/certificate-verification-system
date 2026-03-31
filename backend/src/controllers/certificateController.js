@@ -4,6 +4,7 @@ import {
   calculateDurationLabel,
   formatDateLabel,
 } from "../utils/dateDuration.js";
+import { FRONTEND_URL } from "../server.js";
 
 const buildCertificateId = (studentId) => {
   const year = new Date().getFullYear();
@@ -45,9 +46,8 @@ export const generateCertificate = async (req, res) => {
 
   const certificateId =
     student.certificateId || buildCertificateId(student._id.toString());
-import { FRONTEND_URL } from "../server.js";
 
-const baseUrl =
+  const baseUrl =
     (process.env.CLIENT_URL || FRONTEND_URL)?.replace(/\/$/, "") || "http://localhost:5173";
   const certificateUrl = `${baseUrl}/certificate/${certificateId}`;
 

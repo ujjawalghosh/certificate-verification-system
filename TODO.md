@@ -4,4 +4,9 @@
 ## Step 2: ✅ Update app.js CORS origin  
 ## Step 3: ✅ Update authController.js buildFrontendOrigin()
 ## Step 4: ✅ Update certificateController.js baseUrl
-## Step 5: [PENDING] Test deployment
+## Step 5: ✅ Fixed certificateController.js - Moved import to top level
+All files updated successfully ✅
+
+**Test locally:** `cd backend && npm run dev`
+
+**Deploy to Render** for production Vercel frontend URL support.
