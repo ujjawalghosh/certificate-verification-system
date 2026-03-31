@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'https://certificate-verification-system-hbr0.onrender.com';
+const API_BASE ='https://certificate-verification-system-hbr0.onrender.com';
 
 const buildHeaders = (options) => {
   const headers = { ...(options.headers || {}) };
