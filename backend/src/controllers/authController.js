@@ -11,9 +11,9 @@ const signToken = (user) => {
   );
 };
 
-const normalizeEmail = (email) => String(email || "").trim().toLowerCase();
+import { FRONTEND_URL } from "../config.js";
 
-import { FRONTEND_URL } from "../server.js";
+const normalizeEmail = (email) => String(email || "").trim().toLowerCase();
 
 const buildFrontendOrigin = () =>
   process.env.CLIENT_URL || process.env.FRONTEND_URL || FRONTEND_URL || "http://localhost:5173";

@@ -4,10 +4,10 @@ import authRoutes from "./routes/authRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import certificateRoutes from "./routes/certificateRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import { FRONTEND_URL } from "./config.js";
 
 const app = express();
 const requestBodyLimit = process.env.REQUEST_BODY_LIMIT || "10mb";
-import { FRONTEND_URL } from "./server.js";
 const allowedOrigin = process.env.CLIENT_URL || FRONTEND_URL;
 
 app.use(

@@ -4,7 +4,7 @@ import {
   calculateDurationLabel,
   formatDateLabel,
 } from "../utils/dateDuration.js";
-import { FRONTEND_URL } from "../server.js";
+import { FRONTEND_URL } from "../config.js";
 
 const buildCertificateId = (studentId) => {
   const year = new Date().getFullYear();
