@@ -26,4 +26,13 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/certificates", certificateRoutes);
 app.use("/api/admin", adminRoutes);
 
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error('Global server error:', err.stack);
+  res.status(500).json({ 
+    message: 'Internal server error',
+    ...(process.env.NODE_ENV === 'development' && { error: err.message })
+  });
+});
+
 export default app;

@@ -22,69 +22,84 @@ const hashResetToken = (token) =>
   crypto.createHash("sha256").update(token).digest("hex");
 
 export const register = async (req, res) => {
-  const { name, email, password, role, avatar } = req.body;
-  const normalizedEmail = normalizeEmail(email);
+  try {
+    const { name, email, password, role, avatar } = req.body;
+    const normalizedEmail = normalizeEmail(email);
 
-  if (!name || !normalizedEmail || !password) {
-    return res.status(400).json({ message: "Missing required fields." });
+    if (!name || !normalizedEmail || !password) {
+      return res.status(400).json({ message: "Missing required fields." });
+    }
+
+    const existing = await User.findOne({ email: normalizedEmail });
+    if (existing) {
+      return res.status(409).json({ message: "Email already exists." });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+    const user = await User.create({
+      name,
+      email: normalizedEmail,
+      passwordHash,
+      role: role === "admin" ? "admin" : "student",
+      avatar: avatar || null,
+    });
+
+    if (!process.env.JWT_SECRET) {
+      console.error('Register error: JWT_SECRET missing in env');
+      return res.status(500).json({ message: 'Server config error: Missing JWT_SECRET' });
+    }
+
+    const token = signToken(user);
+    return res.status(201).json({
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        avatar: user.avatar,
+      },
+    });
+  } catch (error) {
+    console.error('Register error:', error.stack);
+    res.status(500).json({ message: 'Register server error', error: error.message });
   }
-
-  const existing = await User.findOne({ email: normalizedEmail });
-  if (existing) {
-    return res.status(409).json({ message: "Email already exists." });
-  }
-
-  const passwordHash = await bcrypt.hash(password, 10);
-  const user = await User.create({
-    name,
-    email: normalizedEmail,
-    passwordHash,
-    role: role === "admin" ? "admin" : "student",
-    avatar: avatar || null,
-  });
-
-  const token = signToken(user);
-  return res.status(201).json({
-    token,
-    user: {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      avatar: user.avatar,
-    },
-  });
 };
 
 export const login = async (req, res) => {
-  const { email, password } = req.body;
-  const normalizedEmail = normalizeEmail(email);
+  try {
+    const { email, password } = req.body;
+    const normalizedEmail = normalizeEmail(email);
 
-  if (!normalizedEmail || !password) {
-    return res.status(400).json({ message: "Missing credentials." });
+    if (!normalizedEmail || !password) {
+      return res.status(400).json({ message: "Missing credentials." });
+    }
+
+    const user = await User.findOne({ email: normalizedEmail });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials." });
+    }
+
+    const matches = await bcrypt.compare(password, user.passwordHash);
+    if (!matches) {
+      return res.status(401).json({ message: "Invalid credentials." });
+    }
+
+    const token = signToken(user);
+    return res.json({
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        avatar: user.avatar,
+      },
+    });
+  } catch (error) {
+    console.error('Login error:', error.stack);
+    res.status(500).json({ message: 'Login server error', error: error.message });
   }
-
-  const user = await User.findOne({ email: normalizedEmail });
-  if (!user) {
-    return res.status(401).json({ message: "Invalid credentials." });
-  }
-
-  const matches = await bcrypt.compare(password, user.passwordHash);
-  if (!matches) {
-    return res.status(401).json({ message: "Invalid credentials." });
-  }
-
-  const token = signToken(user);
-  return res.json({
-    token,
-    user: {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
-      avatar: user.avatar,
-    },
-  });
 };
 
 export const forgotPassword = async (req, res) => {

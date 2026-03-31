@@ -5,7 +5,22 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": "http://localhost:5000",
+      "/api/auth": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
+      "/api/upload": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
+      "/api/certificates": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
+      "/api/admin": {
+        target: "http://localhost:5000",
+        changeOrigin: true,
+      },
     },
   },
 });

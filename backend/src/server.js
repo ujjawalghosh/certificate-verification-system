@@ -8,7 +8,7 @@ const port = process.env.PORT || 5000;
 
 connectDb()
   .then(() => {
-    app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
       console.log(`CertiFlow API running on port ${port}`);
       console.log(`Connected to MongoDB successfully`);
     });
